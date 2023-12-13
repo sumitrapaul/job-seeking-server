@@ -8,16 +8,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // middleware
-// app.use(
-//   cors({
-//     origin: ["https://job-application-dd3f8.web.app", 
-//     "https://job-application-dd3f8.firebaseapp.com",
-//     "https://weak-tooth.surge.sh"
-//     ],
+app.use(
+  cors({
+    origin: ["https://job-application-dd3f8.web.app", 
+    "https://job-application-dd3f8.firebaseapp.com",
+    "https://weak-tooth.surge.sh"
+    ],
     
-//     credentials: true,
-//   })
-// );
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -84,15 +84,15 @@ async function run() {
       res.clearCookie("token", { maxAge: 0, secure:process.env.NODE_ENV === "production" ? true : false, sameSite:process.env.NODE_ENV === "production" ? "none" : "strict" }).send({ success: true });
     });
 
-    app.post("/addajobs", async (req, res) => {
-      const newJob = req.body;
+    // app.post("/addajobs", async (req, res) => {
+    //   const newJob = req.body;
 
-      newJob.date = new Date();
-      newJob.applicants = newJob.applicants || 0;
-      const result = await jobsCollection.insertOne(newJob);
+    //   newJob.date = new Date();
+    //   newJob.applicants = newJob.applicants || 0;
+    //   const result = await jobsCollection.insertOne(newJob);
       
-      res.status(201).json({ success: true, jobId: result.insertedId });
-    });
+    //   res.status(201).json({ success: true, jobId: result.insertedId });
+    // });
 
     app.post("/applied", async (req, res) => {
       const apply = req.body;
