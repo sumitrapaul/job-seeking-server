@@ -94,35 +94,35 @@ async function run() {
       res.status(201).json({ success: true, jobId: result.insertedId });
     });
 
-    // app.post("/applied", async (req, res) => {
-    //   const apply = req.body;
+    app.post("/applied", async (req, res) => {
+      const apply = req.body;
 
-    //   const result = await applyCollection.insertOne(apply);
-    //   const jobId = new ObjectId(apply.jobId);
+      const result = await applyCollection.insertOne(apply);
+      const jobId = new ObjectId(apply.jobId);
 
-    //   const filter = { _id: jobId };
-    //   const update = {
-    //     $inc: { applicants: 1 },
-    //   };
-    //   await jobsCollection.updateOne(filter, update);
+      const filter = { _id: jobId };
+      const update = {
+        $inc: { applicants: 1 },
+      };
+      await jobsCollection.updateOne(filter, update);
 
-    //   res
-    //     .status(200)
-    //     .json({
-    //       success: true,
-    //       message: "Job application submitted successfully",
-    //     });
-    // });
-
-    app.get("/jobscategory", async (req, res) => {
-      const category = req.params.category;
-
-      const query = { category: category };
-
-      const result = await jobsCollection.find(query).toArray();
-
-      res.send(result);
+      res
+        .status(200)
+        .json({
+          success: true,
+          message: "Job application submitted successfully",
+        });
     });
+
+    // app.get("/jobscategory", async (req, res) => {
+    //   const category = req.params.category;
+
+    //   const query = { category: category };
+
+    //   const result = await jobsCollection.find(query).toArray();
+
+    //   res.send(result);
+    // });
 
     app.get("/allJobs", async (req, res) => {
       const result = await jobsCollection.find().toArray();
