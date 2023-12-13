@@ -84,35 +84,35 @@ async function run() {
       res.clearCookie("token", { maxAge: 0, secure:process.env.NODE_ENV === "production" ? true : false, sameSite:process.env.NODE_ENV === "production" ? "none" : "strict" }).send({ success: true });
     });
 
-    // app.post("/addajobs", async (req, res) => {
-    //   const newJob = req.body;
+    app.post("/addajobs", async (req, res) => {
+      const newJob = req.body;
 
-    //   newJob.date = new Date();
-    //   newJob.applicants = newJob.applicants || 0;
-    //   const result = await jobsCollection.insertOne(newJob);
+      newJob.date = new Date();
+      newJob.applicants = newJob.applicants || 0;
+      const result = await jobsCollection.insertOne(newJob);
       
-    //   res.status(201).json({ success: true, jobId: result.insertedId });
-    // });
-
-    app.post("/applied", async (req, res) => {
-      const apply = req.body;
-
-      const result = await applyCollection.insertOne(apply);
-      const jobId = new ObjectId(apply.jobId);
-
-      const filter = { _id: jobId };
-      const update = {
-        $inc: { applicants: 1 },
-      };
-      await jobsCollection.updateOne(filter, update);
-
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: "Job application submitted successfully",
-        });
+      res.status(201).json({ success: true, jobId: result.insertedId });
     });
+
+    // app.post("/applied", async (req, res) => {
+    //   const apply = req.body;
+
+    //   const result = await applyCollection.insertOne(apply);
+    //   const jobId = new ObjectId(apply.jobId);
+
+    //   const filter = { _id: jobId };
+    //   const update = {
+    //     $inc: { applicants: 1 },
+    //   };
+    //   await jobsCollection.updateOne(filter, update);
+
+    //   res
+    //     .status(200)
+    //     .json({
+    //       success: true,
+    //       message: "Job application submitted successfully",
+    //     });
+    // });
 
     app.get("/jobscategory", async (req, res) => {
       const category = req.params.category;
