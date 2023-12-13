@@ -129,28 +129,28 @@ async function run() {
       res.send(result);
     });
 
-    // app.get("/myJobs", logger, verifyToken, async (req, res) => {
-    //   let query = {};
-    //   const email = req.query?.email;
-    //     //verify
-    //     if(req.query.email !== req.user.email){
-    //       return res.status(403).send({message: 'forbidden'})
-    //     }
+    app.get("/myJobs", logger, verifyToken, async (req, res) => {
+      let query = {};
+      const email = req.query?.email;
+        //verify
+        if(req.query.email !== req.user.email){
+          return res.status(403).send({message: 'forbidden'})
+        }
         
-    //   if (email) {
-    //     query = { userEmail: email };
-    //   }
+      if (email) {
+        query = { userEmail: email };
+      }
 
-    //   const result = await jobsCollection.find(query).toArray();
-    //   res.send(result);
-    // });
+      const result = await jobsCollection.find(query).toArray();
+      res.send(result);
+    });
 
     app.get("/applied", logger, verifyToken, async (req, res) => {
      
       const email = req.query?.email;
-      console.log(email)
+      // console.log(email)
       
-      console.log('user',req.user.email)
+      // console.log('user',req.user.email)
 
       //verify
       if(req.query.email !== req.user.email){
