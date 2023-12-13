@@ -114,36 +114,36 @@ async function run() {
         });
     });
 
-    // app.get("/jobscategory", async (req, res) => {
-    //   const category = req.params.category;
+    app.get("/jobscategory", async (req, res) => {
+      const category = req.params.category;
 
-    //   const query = { category: category };
+      const query = { category: category };
 
-    //   const result = await jobsCollection.find(query).toArray();
+      const result = await jobsCollection.find(query).toArray();
 
-    //   res.send(result);
-    // });
+      res.send(result);
+    });
 
     app.get("/allJobs", async (req, res) => {
       const result = await jobsCollection.find().toArray();
       res.send(result);
     });
 
-    app.get("/myJobs", logger, verifyToken, async (req, res) => {
-      let query = {};
-      const email = req.query?.email;
-        //verify
-        if(req.query.email !== req.user.email){
-          return res.status(403).send({message: 'forbidden'})
-        }
+    // app.get("/myJobs", logger, verifyToken, async (req, res) => {
+    //   let query = {};
+    //   const email = req.query?.email;
+    //     //verify
+    //     if(req.query.email !== req.user.email){
+    //       return res.status(403).send({message: 'forbidden'})
+    //     }
         
-      if (email) {
-        query = { userEmail: email };
-      }
+    //   if (email) {
+    //     query = { userEmail: email };
+    //   }
 
-      const result = await jobsCollection.find(query).toArray();
-      res.send(result);
-    });
+    //   const result = await jobsCollection.find(query).toArray();
+    //   res.send(result);
+    // });
 
     app.get("/applied", logger, verifyToken, async (req, res) => {
      
