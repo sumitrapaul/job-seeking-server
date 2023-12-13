@@ -8,16 +8,16 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // middleware
-app.use(
-  cors({
-    origin: ["https://job-application-dd3f8.web.app", 
-    "https://job-application-dd3f8.firebaseapp.com",
-    "https://weak-tooth.surge.sh"
-    ],
+// app.use(
+//   cors({
+//     origin: ["https://job-application-dd3f8.web.app", 
+//     "https://job-application-dd3f8.firebaseapp.com",
+//     "https://weak-tooth.surge.sh"
+//     ],
     
-    credentials: true,
-  })
-);
+//     credentials: true,
+//   })
+// );
 
 app.use(express.json());
 app.use(cookieParser());
