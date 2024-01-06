@@ -12,7 +12,8 @@ app.use(
   cors({
     origin: ["https://job-application-dd3f8.web.app", 
     "https://job-application-dd3f8.firebaseapp.com",
-    "https://weak-tooth.surge.sh"
+    "https://weak-tooth.surge.sh",
+    "http://localhost:5173"
     ],
     
     credentials: true,
@@ -58,10 +59,11 @@ const verifyToken = (req, res, next) => {
 
 async function run() {
   try {
-    // await client.connect();
+    await client.connect();
 
     const jobsCollection = client.db("jobApply").collection("jobs");
     const applyCollection = client.db("jobApply").collection("applied");
+    const testimonialCollection = client.db("jobApply").collection("addTestimonial");
     app.post("/auth", logger, async (req, res) => {
       const user = req.body;
       // console.log(user);
@@ -196,6 +198,15 @@ async function run() {
       const query = { _id: new ObjectId(id) };
       const result = await jobsCollection.deleteOne(query);
       res.send(result);
+    });
+
+
+    app.post("/addTestimonial", async (req, res) => {
+      const newTestimonial = req.body;
+
+      const result = await testimonialCollection.insertOne(newTestimonial);
+      
+      res.send(result)
     });
 
     await client.db("admin").command({ ping: 1 });
