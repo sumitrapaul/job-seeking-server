@@ -59,7 +59,7 @@ const verifyToken = (req, res, next) => {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
 
     const jobsCollection = client.db("jobApply").collection("jobs");
     const applyCollection = client.db("jobApply").collection("applied");
