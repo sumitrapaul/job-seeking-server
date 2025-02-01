@@ -150,9 +150,7 @@ async function run() {
     app.get("/applied", logger, verifyToken, async (req, res) => {
      
       const email = req.query?.email;
-      // console.log(email)
-      
-      // console.log('user',req.user.email)
+     
 
       //verify
       if(req.query.email !== req.user.email){
